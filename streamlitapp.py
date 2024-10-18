@@ -1,54 +1,54 @@
 import pickle
 import streamlit as st
-from streamlit_option_menu import option_menu
 
 # Load the saved model
 Cholera_project = pickle.load(open('Cholera_model.sav', 'rb'))
 
 # Page title
-st.title('Cholera Disease Prediction using ML')
+st.markdown("<h1 style='text-align: center; color: white;'>Cholera Disease Prediction using ML</h1>", unsafe_allow_html=True)
 
 # Input data from the user
-col1, col2, col3, col4, col5 = st.columns(5)
+with st.container():
+    col1, col2, col3, col4, col5 = st.columns(5)
 
-with col1:
-    Age = st.text_input('Age')
+    with col1:
+        Age = st.text_input('Age')
 
-with col2:
-    Gender = st.text_input('Gender')
+    with col2:
+        Gender = st.text_input('Gender')
 
-with col3:
-    Access_to_Clean_Water = st.text_input('Access to Clean Water')
+    with col3:
+        Access_to_Clean_Water = st.text_input('Access to Clean Water')
 
-with col4:
-    Sanitation_Facilities = st.text_input('Sanitation Facilities')
+    with col4:
+        Sanitation_Facilities = st.text_input('Sanitation Facilities')
 
-with col5:
-    Proximity_to_Water_Source = st.text_input('Proximity to Water Source')
+    with col5:
+        Proximity_to_Water_Source = st.text_input('Proximity to Water Source')
 
-with col1:
-    Population_Density = st.text_input('Population Density')
+    with col1:
+        Population_Density = st.text_input('Population Density')
 
-with col2:
-    Income_Level = st.text_input('Income Level')
+    with col2:
+        Income_Level = st.text_input('Income Level')
 
-with col3:
-    Education_Level = st.text_input('Education Level')
+    with col3:
+        Education_Level = st.text_input('Education Level')
 
-with col4:
-    Housing_Conditions = st.text_input('Housing Conditions')
+    with col4:
+        Housing_Conditions = st.text_input('Housing Conditions')
 
-with col5:
-    Season = st.text_input('Season')
+    with col5:
+        Season = st.text_input('Season')
 
-with col1:
-    Pre_existing_Conditions = st.text_input('Pre-existing Conditions')
+    with col1:
+        Pre_existing_Conditions = st.text_input('Pre-existing Conditions')
 
-with col2:
-    Vaccination_Status = st.text_input('Vaccination Status')
+    with col2:
+        Vaccination_Status = st.text_input('Vaccination Status')
 
-with col3:
-    Access_to_Healthcare = st.text_input('Access to Healthcare')
+    with col3:
+        Access_to_Healthcare = st.text_input('Access to Healthcare')
 
 # Code for prediction
 Cholera_diagnosis = ''
