@@ -5,62 +5,62 @@ import streamlit as st
 Cholera_project = pickle.load(open('Cholera_model.sav', 'rb'))
 
 # Page title
-st.markdown("<h1 style='text-align: center; color: white;'>Cholera Disease Prediction using ML</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>Cholera Disease Prediction</h1>", unsafe_allow_html=True)
 
 # Input data from the user
 with st.container():
     col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
-        Age = st.text_input('Age')
+        Age = st.number_input('Age', min_value=0, max_value=120, value=30)
 
     with col2:
-        Gender = st.text_input('Gender')
+        Gender = st.selectbox('Gender', options=['Male', 'Female', 'Other'], index=0)
 
     with col3:
-        Access_to_Clean_Water = st.text_input('Access to Clean Water')
+        Access_Clean_Water = st.selectbox('Access to Clean Water', options=['Yes', 'No'], index=0)
 
     with col4:
-        Sanitation_Facilities = st.text_input('Sanitation Facilities')
+        Sanitation = st.selectbox('Sanitation Facilities', options=['Good', 'Average', 'Poor'], index=1)
 
     with col5:
-        Proximity_to_Water_Source = st.text_input('Proximity to Water Source')
+        Proximity_Water = st.number_input('Distance to Water (km)', min_value=0.0, max_value=100.0, value=1.0)
 
     with col1:
-        Population_Density = st.text_input('Population Density')
+        Pop_Density = st.number_input('Population Density (people/km²)', min_value=0, max_value=10000, value=100)
 
     with col2:
-        Income_Level = st.text_input('Income Level')
+        Income_Level = st.selectbox('Income Level', options=['Low', 'Medium', 'High'], index=1)
 
     with col3:
-        Education_Level = st.text_input('Education Level')
+        Education = st.selectbox('Education Level', options=['No Education', 'Primary', 'Secondary', 'Tertiary'], index=2)
 
     with col4:
-        Housing_Conditions = st.text_input('Housing Conditions')
+        Housing_Conditions = st.selectbox('Housing Conditions', options=['Good', 'Average', 'Poor'], index=1)
 
     with col5:
-        Season = st.text_input('Season')
+        Season = st.selectbox('Season', options=['Winter', 'Spring', 'Summer', 'Fall'], index=2)
 
     with col1:
-        Pre_existing_Conditions = st.text_input('Pre-existing Conditions')
+        Pre_Conditions = st.selectbox('Pre-existing Conditions', options=['None', 'Chronic', 'Other'], index=0)
 
     with col2:
-        Vaccination_Status = st.text_input('Vaccination Status')
+        Vaccination_Status = st.selectbox('Vaccination Status', options=['Vaccinated', 'Not Vaccinated'], index=0)
 
     with col3:
-        Access_to_Healthcare = st.text_input('Access to Healthcare')
+        Access_Healthcare = st.selectbox('Access to Healthcare', options=['Yes', 'No'], index=0)
 
 # Code for prediction
 Cholera_diagnosis = ''
 
 # Prediction button
-if st.button('Cholera Disease Test Button'):
+if st.button('Test for Cholera'):
     try:
         Cholera_disease_prediction = Cholera_project.predict([[  
-            Age, Gender, Access_to_Clean_Water, Sanitation_Facilities,
-            Proximity_to_Water_Source, Population_Density, Income_Level,
-            Education_Level, Housing_Conditions, Season,
-            Pre_existing_Conditions, Vaccination_Status, Access_to_Healthcare
+            Age, Gender, Access_Clean_Water, Sanitation,
+            Proximity_Water, Pop_Density, Income_Level,
+            Education, Housing_Conditions, Season,
+            Pre_Conditions, Vaccination_Status, Access_Healthcare
         ]])
     except ValueError as e:
         st.error(f"Prediction error: {str(e)}")
