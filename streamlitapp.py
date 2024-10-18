@@ -121,7 +121,8 @@ st.markdown(
         border: 1px solid #FF6347;
         border-radius: 5px;
         padding: 12px;
-        width: 100%;
+        width: 100%; /* Make input box full width */
+        max-width: 150%; /* Increase max width for input boxes */
         box-sizing: border-box;
     }
     select {
