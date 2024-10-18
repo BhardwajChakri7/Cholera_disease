@@ -1,5 +1,6 @@
 import pickle
 import streamlit as st
+import pandas as pd
 
 # Load the saved model
 Cholera_project = pickle.load(open('Cholera_model.sav', 'rb'))
@@ -27,7 +28,7 @@ with st.container():
         Proximity_Water = st.number_input('Distance to Water (km)', min_value=0.0, max_value=100.0, value=1.0)
 
     with col1:
-        Pop_Density = st.number_input('Population Density (people/km²)', min_value=0, max_value=10000, value=100)
+        Access_Healthcare = st.selectbox('Access to Healthcare', options=['Yes', 'No'], index=0)
 
     with col2:
         Income_Level = st.selectbox('Income Level', options=['Low', 'Medium', 'High'], index=1)
@@ -48,7 +49,7 @@ with st.container():
         Vaccination_Status = st.selectbox('Vaccination Status', options=['Vaccinated', 'Not Vaccinated'], index=0)
 
     with col3:
-        Access_Healthcare = st.selectbox('Access to Healthcare', options=['Yes', 'No'], index=0)
+        Pop_Density = st.number_input('Population Density (people/km²)', min_value=0, max_value=10000, value=100)
 
 # Code for prediction
 Cholera_diagnosis = ''
@@ -56,12 +57,36 @@ Cholera_diagnosis = ''
 # Prediction button
 if st.button('Test for Cholera'):
     try:
-        Cholera_disease_prediction = Cholera_project.predict([[  
-            Age, Gender, Access_Clean_Water, Sanitation,
-            Proximity_Water, Pop_Density, Income_Level,
-            Education, Housing_Conditions, Season,
-            Pre_Conditions, Vaccination_Status, Access_Healthcare
-        ]])
+        # Prepare the input for prediction
+        input_data = pd.DataFrame({
+            'Age': [Age],
+            'Gender': [Gender],
+            'Access_Clean_Water': [Access_Clean_Water],
+            'Sanitation': [Sanitation],
+            'Proximity_Water': [Proximity_Water],
+            'Pop_Density': [Pop_Density],
+            'Income_Level': [Income_Level],
+            'Education': [Education],
+            'Housing_Conditions': [Housing_Conditions],
+            'Season': [Season],
+            'Pre_Conditions': [Pre_Conditions],
+            'Vaccination_Status': [Vaccination_Status],
+            'Access_Healthcare': [Access_Healthcare]
+        })
+
+        # Convert categorical variables to numerical (if needed)
+        input_data['Gender'] = input_data['Gender'].map({'Male': 0, 'Female': 1, 'Other': 2})
+        input_data['Access_Clean_Water'] = input_data['Access_Clean_Water'].map({'Yes': 1, 'No': 0})
+        input_data['Sanitation'] = input_data['Sanitation'].map({'Good': 2, 'Average': 1, 'Poor': 0})
+        input_data['Income_Level'] = input_data['Income_Level'].map({'Low': 0, 'Medium': 1, 'High': 2})
+        input_data['Education'] = input_data['Education'].map({'No Education': 0, 'Primary': 1, 'Secondary': 2, 'Tertiary': 3})
+        input_data['Housing_Conditions'] = input_data['Housing_Conditions'].map({'Good': 2, 'Average': 1, 'Poor': 0})
+        input_data['Season'] = input_data['Season'].map({'Winter': 0, 'Spring': 1, 'Summer': 2, 'Fall': 3})
+        input_data['Pre_Conditions'] = input_data['Pre_Conditions'].map({'None': 0, 'Chronic': 1, 'Other': 2})
+        input_data['Vaccination_Status'] = input_data['Vaccination_Status'].map({'Vaccinated': 1, 'Not Vaccinated': 0})
+        input_data['Access_Healthcare'] = input_data['Access_Healthcare'].map({'Yes': 1, 'No': 0})
+
+        Cholera_disease_prediction = Cholera_project.predict(input_data)
     except ValueError as e:
         st.error(f"Prediction error: {str(e)}")
     else:
