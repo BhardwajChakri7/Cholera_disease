@@ -5,7 +5,7 @@ from streamlit_option_menu import option_menu
 
 # loading the saved models
 
-Cholera_project = pickle.load(open('Cholera_model (1).sav', 'rb'))
+Cholera_project = pickle.load(open('Cholera_model.sav', 'rb'))
 # page title
 st.title('Cholera Disease Prediction using ML')
 
