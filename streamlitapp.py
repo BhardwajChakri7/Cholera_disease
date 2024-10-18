@@ -56,7 +56,7 @@ Cholera_diagnosis = ''
 # Prediction button
 if st.button('Cholera Disease Test Button'):
     try:
-        Cholera_disease_prediction = Cholera_project.predict([[
+        Cholera_disease_prediction = Cholera_project.predict([[  
             Age, Gender, Access_to_Clean_Water, Sanitation_Facilities,
             Proximity_to_Water_Source, Population_Density, Income_Level,
             Education_Level, Housing_Conditions, Season,
