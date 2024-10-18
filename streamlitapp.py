@@ -130,6 +130,9 @@ st.markdown(
         -moz-appearance: none;
         appearance: none;
     }
+    label {
+        margin-bottom: 10px; /* Increase space below input titles */
+    }
     </style>
     """,
     unsafe_allow_html=True
