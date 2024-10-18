@@ -91,7 +91,7 @@ st.markdown(
         padding: 30px;
         border: 2px solid #ccc;
         border-radius: 15px;
-        max-width: 800px;
+        max-width: 900px;
         margin: auto;
         backdrop-filter: blur(10px);
         box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.7);
